@@ -1,6 +1,6 @@
 class CreateXauUsd1Mins < ActiveRecord::Migration
   def change
-    create_table :xau_usd_1_mins do |t|
+    create_table :xau_usd1_mins do |t|
       t.timestamp :date
       t.float :open
       t.float :high

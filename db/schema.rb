@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202141403) do
+ActiveRecord::Schema.define(version: 20150203102150) do
 
-  create_table "xau_usd_1_mins", force: true do |t|
+  create_table "xau_usd1_mins", force: true do |t|
     t.datetime "date"
     t.float    "open",              limit: 24
     t.float    "high",              limit: 24
