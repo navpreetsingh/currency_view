@@ -1,2 +1,54 @@
-<h1>Currency#view</h1>
-<p>Find me in app/views/currency/view.html.erb</p>
+<% max_avg, min_avg, total = @data[0..2] %>
+<% data = @data[3..-1] %>
+<% even, odd = data.partition.each_with_index{ |el, i| i.even? } %>
+
+<div class="common_info">
+  <table class="table table-bordered" >
+    <tr>
+      <th rowspan="1">Maximum_Average</th>
+      <td><%= max_avg.round(3) %></td>
+    </tr>
+    <tr>
+      <th rowspan="1">Minimum_Average</th>
+      <td><%= min_avg.round(3) %></td>                
+    </tr>
+    <tr>
+      <th rowspan="1">Total</th>      
+      <td><%= total %></td>         
+    </tr>    
+  </table>
+</div>
+
+<div class="detail_info">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Price</th>
+        <th>Max_count</th>
+        <th>Min_Count</th>
+        <th>Max_count_%</th>
+        <th>Min_Count_%</th>                                
+      </tr>
+    </thead>
+    <tbody>     
+      <% @default.each_index do |index|%>
+        <tr>
+          <td><%= @default[index].round(1) %></td>
+          <% if index > 0 %>          
+            <td><%= even[index - 1] != 0 ? even[index] : nil %></td>
+            <td><%= odd[index - 1] != 0 ? odd[index] : nil %></td>
+            <td><%= even[index - 1] != 0 ? ((even[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>
+            <td><%= odd[index - 1] != 0 ? ((odd[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>         
+          <% else %>
+            <td><%= even[index] %></td>
+            <td><%= odd[index] %></td>
+            <td><%= ((even[index] / total.to_f) * 100).round(2) %>%</td>
+            <td><%= ((odd[index] / total.to_f) * 100).round(2) %>%</td>          
+          <% end %>
+        </tr>
+      <% end %>                    
+    </tbody>
+  </table>
+</div>
+
+
