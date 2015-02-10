@@ -48,8 +48,8 @@
             <td><%= odd[index - 1] != 0 ? odd[index] : nil %></td>
             <td><%= even[index - 1] != 0 ? ((even[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>
             <td><%= odd[index - 1] != 0 ? ((odd[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>         
-            <td><%= (index < profit_index or profit_max[index - profit_index].nil?) ? nil : profit_max[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>
-            <td><%= (index < profit_index or profit_min[index - profit_index].nil?) ? nil : profit_min[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>
+            <td><%= (index < profit_index or profit_max[index - profit_index].nil?) ? nil : profit_max[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index] - 0.1).round(1)})" %> </td>
+            <td><%= (index < profit_index or profit_min[index - profit_index].nil?) ? nil : profit_min[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index] - 0.1).round(1)})" %> </td>
           <% else %>
             <td><%= even[index] %></td>
             <td><%= odd[index] %></td>
