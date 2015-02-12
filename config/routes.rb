@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'currency/view'
+  match 'currency/view', via:[:get, :post]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

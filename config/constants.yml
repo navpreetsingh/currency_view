@@ -1,0 +1,31 @@
+Currency:    
+    aud_cad: AudCad
+    aud_jpy: AudJpy
+    aud_nzd: AudNzd
+    aud_usd: AudUsd
+    cad_jpy: CadJpy
+    eur_aud: EurAud
+    eur_cad: EurCad
+    eur_chf: EurChf
+    eur_gbp: EurGbp
+    eur_jpy: EurJpy
+    eur_usd: EurUsd
+    gbp_jpy: GbpJpy
+    gbp_usd: GbpUsd
+    nzd_usd: NzdUsd
+    usd_cad: UsdCad
+    usd_chf: UsdChf 
+    usd_jpy: UsdJpy
+    xag_usd: XagUsd
+    xau_usd: XauUsd
+
+Time_Frame:
+    1_Min: 1 Minute
+    5_Min: 5 Minutes
+    15_Min: 15 Minutes
+    30_Min: 30 Minutes
+    1_Hr: 1 Hour
+    4_Hr: 4 Hours
+    1_Day: 1 Day
+    1_Week: 1 Week
+    1_Month: 1 Month
