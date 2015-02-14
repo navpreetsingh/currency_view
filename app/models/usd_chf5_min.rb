@@ -1,0 +1,3 @@
+class UsdChf5Min < ActiveRecord::Base
+	validates :date, uniqueness: true
+end

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2015-02-14 12:28:41
+  open: 1.5
+  high: 1.5
+  low: 1.5
+  close: 1.5
+  change_pips: 1.5
+  change_percentage: 1.5
+  oh_diff: 1.5
+  ol_diff: 1.5
+  oc_diff: 1.5
+  max: 1.5
+  min: 1.5
+
+two:
+  date: 2015-02-14 12:28:41
+  open: 1.5
+  high: 1.5
+  low: 1.5
+  close: 1.5
+  change_pips: 1.5
+  change_percentage: 1.5
+  oh_diff: 1.5
+  ol_diff: 1.5
+  oc_diff: 1.5
+  max: 1.5
+  min: 1.5

@@ -29,3 +29,14 @@ Time_Frame:
     1_Day: 1 Day
     1_Week: 1 Week
     1_Month: 1 Month
+
+Time_Scale:
+    1Min: 1
+    5Min: 5
+    15Min: 15
+    30Min: 30
+    1Hr: 60
+    6Hr: 240
+    1Day: 1440
+    1Week: 10080
+    1Month: 43200
