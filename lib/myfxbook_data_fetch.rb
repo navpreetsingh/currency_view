@@ -7,24 +7,25 @@ class MyfxbookDataFetch
 	def initialize		
     	end_date = Time.now.tomorrow.strftime("%Y-%m-%d")
     	#To get data @site_p1 + currency in "XAUUSD" format + @site_p2 + time in seconds + @site_p3
-    	@site_p1 = "http://www.myfxbook.com/getHistoricalDataByDate.json?&start=2004-01-01%2000:00&end=#{end_date}%2000:00&symbol="    	
+    	@site_p1 = "http://www.myfxbook.com/getHistoricalDataByDate.json?&start=1990-01-01%2000:00&end=#{end_date}%2000:00&symbol="    	
     	@site_p2 = "&timeScale="
     	@site_p3 = "&userTimeFormat=0&rand=0.35035624839875316"
     	@currency = Constants["Currency"].values
     	@time_scale = Constants["Time_Scale"]    	
 	end
 
-	def fetch_all_data
-		Min_1
-		Min_5
-		Min_15
-		Min_30
-		Hr_1
-		Hr_4
-		Day_1
-		Week_1
-		Month_1
-	end
+	# def fetch_all_data
+	# 	agent = MyfxbookDataFetch.new
+	# 	agent.Min_1
+	# 	agent.Min_5
+	# 	agent.Min_15
+	# 	agent.Min_30
+	# 	agent.Hr_1
+	# 	agent.Hr_4
+	# 	agent.Day_1
+	# 	agent.Week_1
+	# 	agent.Month_1
+	# end
 
 	def Min_1
 		time_scale = "1Min"

@@ -12,22 +12,29 @@ class DataStoring
           puts "Exception"
         end
       end
-      sql = File.read(Rails.root + "lib/sql_files/more_data.sql").split("\n")
+      sql = File.read(Rails.root + "lib/database_files/more_data.sql").split("\n")
       sql.each do |s|
         XauUsd1Min.connection.execute(s)
       end            
     end
 
     def store_fetched_data(data, model_name)
-      #last_date = model_name.order("date DESC").first['date']
+      model_name.connection
+      last_date = model_name.first.nil? ? nil : model_name.order("date DESC").first["date"]
       data.each do |d|
         begin
-          #if last_date >= d[0]
-            model_name.update_or_create(:date => d[0], :open => d[1], :high => d[2], :low => d[3], :close => d[4], 
+          d[0].gsub(/\d{4}/, " #{$&} ")                   
+          d[0] = d[0].gsub(/\d{4}/, " #{$&} ").to_datetime                    
+          if last_date == d[0]            
+            model_name.where("date = ?", last_date).first.update_attributes(:date => d[0], :open => d[1], :high => d[2], :low => d[3], :close => d[4], 
               :change_pips => d[5], :change_percentage => d[6])
-          #end
+            break
+          else
+            model_name.create(:date => d[0], :open => d[1], :high => d[2], :low => d[3], :close => d[4], 
+              :change_pips => d[5], :change_percentage => d[6])
+          end
         rescue Exception => e
-          e.message
+          puts e.message
         end        
       end
     end
@@ -55,6 +62,7 @@ class DataStoring
         time_frame.each do |tf|
           model_name = "`" + cc + tf + "s" + "`"
           sql += "UPDATE #{model_name} SET oh_diff = high - open, ol_diff = open - low, oc_diff = close - open; UPDATE #{model_name} SET max = oh_diff, min = ol_diff where oh_diff >= ol_diff; UPDATE #{model_name} SET max = ol_diff, min = oh_diff where ol_diff >= oh_diff; "
+          #sql += "DELETE FROM #{model_name} WHERE date > '2015-02-20'; "
         end
       end
       File.write(Rails.root + "lib/database_files/more_data.sql", sql)

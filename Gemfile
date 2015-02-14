@@ -27,9 +27,13 @@ gem 'mysql2'
 
 gem 'bootstrap-sass', '~> 3.3.3'
 
-gem 'mechanize', '~> 2.7.3'
+gem 'nokogiri'
 
-gem "watir-webdriver"
+gem 'sidekiq'
+
+# gem 'mechanize', '~> 2.7.3'
+
+# gem "watir-webdriver"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

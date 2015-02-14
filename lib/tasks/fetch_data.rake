@@ -5,5 +5,9 @@ namespace :fetch_data do
 	store it in database and make certain changes as required."
 	task all_currencies: :environment do
 		MyfxbookDataFetch.new.fetch_all_data
+		exec "mysql -u root -pwaheguru13 currency_market < #{Rails.root}/lib/database_files/more_data.sql"
 	end
 end
+
+#RUN below command
+# rake fetch_data:all_currencies
