@@ -14,18 +14,18 @@ class MyfxbookDataFetch
     	@time_scale = Constants["Time_Scale"]    	
 	end
 
-	# def fetch_all_data
-	# 	agent = MyfxbookDataFetch.new
-	# 	agent.Min_1
-	# 	agent.Min_5
-	# 	agent.Min_15
-	# 	agent.Min_30
-	# 	agent.Hr_1
-	# 	agent.Hr_4
-	# 	agent.Day_1
-	# 	agent.Week_1
-	# 	agent.Month_1
-	# end
+	def fetch_all_data
+		agent = MyfxbookDataFetch.new
+		agent.Min_1
+		agent.Min_5
+		agent.Min_15
+		agent.Min_30
+		agent.Hr_1
+		agent.Hr_4
+		agent.Day_1
+		agent.Week_1
+		agent.Month_1
+	end
 
 	def Min_1
 		time_scale = "1Min"
