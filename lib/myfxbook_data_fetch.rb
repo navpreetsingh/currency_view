@@ -4,6 +4,10 @@ require 'open-uri'
 require 'nokogiri'
 
 class MyfxbookDataFetch
+	include Sidekiq::Worker
+	#sidekiq_options queue: "high"
+	#bundle exec sidekiq -q high,5 default
+	sidekiq_options retry: true
 	def initialize		
     	end_date = Time.now.tomorrow.strftime("%Y-%m-%d")
     	#To get data @site_p1 + currency in "XAUUSD" format + @site_p2 + time in seconds + @site_p3
@@ -16,8 +20,8 @@ class MyfxbookDataFetch
 
 	def fetch_all_data
 		agent = MyfxbookDataFetch.new
-		agent.Min_1
-		agent.Min_5
+		# agent.Min_1
+		# agent.Min_5
 		agent.Min_15
 		agent.Min_30
 		agent.Hr_1

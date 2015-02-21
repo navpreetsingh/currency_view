@@ -30,7 +30,10 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'nokogiri'
 
 gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
+gem 'whenever', :require => false
 # gem 'mechanize', '~> 2.7.3'
 
 # gem "watir-webdriver"
@@ -42,7 +45,8 @@ gem 'sidekiq'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
+gem 'capistrano-passenger'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
