@@ -1,101 +1,17 @@
 <% select_data = @data[0..-2] %>
 <% data = @data[-1] %>
 
-<% max_avg, min_avg, total = data[0..2] %>
-<% even, odd = data[3..-1].partition.each_with_index{ |el, i| i.even? } %>
+<div class = "row">
 
-<% initial_value, last_value = (0.5..5).step(0.5).to_a, (10..200).step(5).to_a  %>
-<% step_value = (0.1..0.9).step(0.1).to_a.map{|i| i.round(1)} + (1..5).step(0.5).to_a + (6..10).to_a.map{|i| i.round(1)} %>
+  <%= render partial: "data_input", locals: {select_data: select_data} %> 
 
-<% profit = (select_data[2..3].sum + 0.6).round(1)  %>
-<% profit_index = @default.find_index(profit) %>
-<% profit_max, profit_min = [(even[profit_index] / total.to_f * 100).round(2)], [(odd[profit_index] / total.to_f * 100).round(2)] %>
-<% (profit_index+1..even.count - 1).to_a.each do |index| %>
-  <%  profit_max << (even[index] / even[index - profit_index].to_f * 100).round(2) if even[index - 1] != 0 %>
-  <%  profit_min << (odd[index] / odd[index - profit_index].to_f * 100).round(2) if odd[index - 1] != 0 %>
-<% end %>
+  <%= render partial: "profit_booking_info", locals: {select_data: select_data, default: @default, data: data} %>
+ 
 
-<% profit_set = (0.1..30).step(0.1).to_a.map {|i| i.round(1)} %>
-<% time_frame = @time_frame.values %>
-<% currency_list = @currency.keys.map{|i| i.upcase} %>
+  <div class="col-xs-4" id="common_info">
+    <%= render partial: "currency_info", locals: {data: data} %>
+  </div>
 
-<div class="common_info">
-  <table class="table table-bordered" >
-    <tr>
-      <th rowspan="1">Maximum_Average</th>
-      <td><%= max_avg.round(3) %></td>
-    </tr>
-    <tr>
-      <th rowspan="1">Minimum_Average</th>
-      <td><%= min_avg.round(3) %></td>                
-    </tr>
-    <tr>
-      <th rowspan="1">Total</th>      
-      <td><%= total %></td>         
-    </tr>    
-  </table>
-</div>
-
-<div class = "step_data_info"> 
-  <%= form_tag("/currency/view") do  -%>
-    <label> Initial Value: </lable>
-    <%= select_tag :initial_value, options_for_select([0.1] + initial_value, select_data[0]) %>
-    <label> Last Value: </lable>
-    <%= select_tag :last_value, options_for_select(last_value, select_data[1].to_i) %>  
-    <label> Step Value: </lable>
-    <%= select_tag :step_value, options_for_select(step_value, select_data[2]) %>
-    <label> Set Profit: </lable>
-    <%= select_tag :profit_set, options_for_select(profit_set, select_data[3]) %>
-    <label> Time Frame: </label>
-    <%= select_tag :time_frame, options_for_select(time_frame, select_data[4]) %>
-    <label> Currencies: </label>
-    <%= select_tag :currency, options_for_select(currency_list, select_data[5]) %>
-    <%= submit_tag %>
-  <% end %>
-</div>
-
-<div class = "profit_booking_info">
-  <%= form_tag("/currency/view") do  -%>
-    <label> Profit To Book: </lable>
-  <% end %>
-</div>
-
-<div class="detail_info">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Price</th>
-        <th>Max_count</th>
-        <th>Min_Count</th>
-        <th>Max_count_%</th>
-        <th>Min_Count_%</th> 
-        <th>Profit_max_%</th>
-        <th>Profit_min_%</th>                               
-      </tr>
-    </thead>
-    <tbody>     
-      <% @default.each_index do |index|%>
-        <tr>
-          <td><%= @default[index].round(1) %></td>
-          <% if index > 0 %>          
-            <td><%= even[index - 1] != 0 ? even[index] : nil %></td>
-            <td><%= odd[index - 1] != 0 ? odd[index] : nil %></td>
-            <td><%= even[index - 1] != 0 ? ((even[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>
-            <td><%= odd[index - 1] != 0 ? ((odd[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>  
-            <td><%= (index < profit_index or profit_max[index - profit_index].nil?) ? nil : profit_max[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>
-            <td><%= (index < profit_index or profit_min[index - profit_index].nil?) ? nil : profit_min[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>       
-          <% else %>
-            <td><%= even[index] %></td>
-            <td><%= odd[index] %></td>
-            <td><%= ((even[index] / total.to_f) * 100).round(2) %>%</td>
-            <td><%= ((odd[index] / total.to_f) * 100).round(2) %>%</td>  
-            <td>  </td>
-            <td>  </td>        
-          <% end %>
-        </tr>
-      <% end %>                    
-    </tbody>
-  </table>
 </div>
 
 

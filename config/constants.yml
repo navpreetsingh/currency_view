@@ -40,3 +40,5 @@ Time_Scale:
     1Day: 1440
     1Week: 10080
     1Month: 43200
+
+Database_password: "waheguru13"

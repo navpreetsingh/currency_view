@@ -1,0 +1,45 @@
+<% initial_value, last_value = (0.5..5).step(0.5).to_a, (10..300).step(5).to_a  %>
+<% step_value = (0.1..0.9).step(0.1).to_a.map{|i| i.round(1)} + (1..5).step(0.5).to_a + (6..10).to_a.map{|i| i.round(1)} %>
+<% profit_set = (0.1..30).step(0.1).to_a.map {|i| i.round(1)} %>
+<% time_frame = @time_frame.values %>
+<% currency_list = @currency.keys.map{|i| i.upcase} %>
+
+<div class = "col-xs-1" id = "step_data_info">    
+    
+    <%= form_tag("/currency/view", remote: true) do  -%>
+      <label> Initial Value: </label>
+      <br />
+      <%= select_tag :initial_value, options_for_select([0.1] + initial_value, select_data[0]), class: "btn btn-info dropdown-toggle" %>        
+      <br />
+      <br />
+      <label> Last Value: </label>
+      <br />
+      <%= select_tag :last_value, options_for_select(last_value, select_data[1].to_i), class: "btn btn-info dropdown-toggle" %>          
+      <br />
+      <br />
+      <label> Step Value: </label>
+      <br />
+      <%= select_tag :step_value, options_for_select(step_value, select_data[2]), class: "btn btn-info dropdown-toggle" %>         
+      <br />
+      <br />
+      <label> Set Profit: </label>
+      <br />
+      <%= select_tag :profit_set, options_for_select(profit_set, select_data[3]), class: "btn btn-info dropdown-toggle" %>                
+      <br />
+      <br />
+      <label> Time Frame: </label>
+      <br />
+      <%= select_tag :time_frame, options_for_select(time_frame, select_data[4]), class: "btn btn-info dropdown-toggle" %>    
+      <br />
+      <br />
+      <label> Currencies: </label>
+      <br />
+      <%= select_tag :currency, options_for_select(currency_list, select_data[5]), class: "btn btn-info dropdown-toggle" %>        
+      <br />
+      <br />
+      <%= submit_tag "Save", class: "btn btn-primary" %>
+      <br />
+      <br />
+    <% end %>   
+
+</div>

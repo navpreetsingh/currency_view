@@ -29,5 +29,10 @@ class CurrencyController < ApplicationController
     @data = [initial_value, last_value, step_value, profit_booked, time_frame, currency]
     @data << model_name.connection.execute(sql).first   
 
+    respond_to do |format|
+        format.js
+        format.html
+    end
+
   end
 end

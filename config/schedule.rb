@@ -21,18 +21,22 @@
 
 every :reboot do
 	rake "fetch_data:all_currencies"
-	runner "MyfxbookDataFetch.new.Min_1_async"
-	runner "MyfxbookDataFetch.new.Min_1_async"
+	runner "MyfxbookDataFetchWorker.perform_async('Min_1')"
+	runner "MyfxbookDataFetchWorker.perform_async('Min_5')"
+	rake "fetch_data:table_updation"
 end
 
 every 15.hours do
-	runner "MyfxbookDataFetch.new.Min_1_async"
+	runner "MyfxbookDataFetchWorker.perform_async('Min_1')"
+	rake "fetch_data:table_updation"
 end
 
 every 3.days do
-	runner "MyfxbookDataFetch.new.Min_5_async"
+	runner "MyfxbookDataFetchWorker.perform_async('Min_5')"
+	rake "fetch_data:table_updation"
 end
 
 every :saturday, :at => '6am' do
 	rake "fetch_data:all_currencies"
+	rake "fetch_data:table_updation"
 end

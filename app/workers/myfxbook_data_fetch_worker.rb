@@ -7,7 +7,8 @@ class MyfxbookDataFetchWorker
 	include Sidekiq::Worker
 	#sidekiq_options queue: "high"
 	#bundle exec sidekiq -q high,5 default
-	sidekiq_options retry: true
+	# sidekiq_options retry: true
+
 	def initialize		
     	end_date = Time.now.tomorrow.strftime("%Y-%m-%d")
     	#To get data @site_p1 + currency in "XAUUSD" format + @site_p2 + time in seconds + @site_p3
@@ -18,17 +19,24 @@ class MyfxbookDataFetchWorker
     	@time_scale = Constants["Time_Scale"]    	
 	end
 
-	def fetch_all_data
-		agent = MyfxbookDataFetch.new
-		# agent.Min_1
-		# agent.Min_5
-		agent.Min_15
-		agent.Min_30
-		agent.Hr_1
-		agent.Hr_4
-		agent.Day_1
-		agent.Week_1
-		agent.Month_1
+	def perform(interval=nil)
+		agent = MyfxbookDataFetchWorker.new				
+		case interval
+		when "Min_1"
+			agent.Min_1
+		when "Min_5"
+			agent.Min_5
+		else
+			agent.Min_1
+			agent.Min_5
+			agent.Min_15
+			agent.Min_30
+			agent.Hr_1
+			agent.Hr_4
+			agent.Day_1
+			agent.Week_1
+			agent.Month_1
+		end
 	end
 
 	def Min_1
@@ -76,8 +84,10 @@ class MyfxbookDataFetchWorker
 		fetch_data(time_scale, @time_scale[time_scale])
 	end
 
-	private
-	def fetch_data(time_scale_key, time_scale_value)		
+	
+	private	
+
+	def fetch_data(time_scale_key, time_scale_value)			
 		@currency.each do |currency|
 			site = @site_p1 + currency.upcase + @site_p2 + time_scale_value.to_s + @site_p3
 			data = Nokogiri::HTML(JSON.parse(open(site).read)["content"]["historyData"]).text.gsub(" ","").split("\r\n")
@@ -85,6 +95,7 @@ class MyfxbookDataFetchWorker
 			data = data.in_groups_of(7) if data.count % 7 == 0
 			data.delete_at(0)			
 			model_name = (currency + time_scale_key).constantize
+			puts model_name
 			DataStoring.store_fetched_data(data, model_name)
 		end
 	end	

@@ -20,7 +20,7 @@ class DataStoring
 
     def store_fetched_data(data, model_name)
       model_name.connection
-      last_date = model_name.first.nil? ? nil : model_name.order("date DESC").first["date"]
+      last_date = model_name.first.nil? ? nil : model_name.select("date").order("date DESC").first["date"]
       data.each do |d|
         begin
           d[0].gsub(/\d{4}/, " #{$&} ")                   

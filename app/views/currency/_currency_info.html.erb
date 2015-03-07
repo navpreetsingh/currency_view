@@ -1,0 +1,19 @@
+<% max_avg, min_avg, total = data[0..2] %>
+
+<label> Currency Information: </label>
+<div id="currency_info">
+  <table class="table table-bordered" >
+    <tr>
+      <th rowspan="1">Maximum_Average</th>
+      <td><%= max_avg.round(3) %></td>
+    </tr>
+    <tr>
+      <th rowspan="1">Minimum_Average</th>
+      <td><%= min_avg.round(3) %></td>                
+    </tr>
+    <tr>
+      <th rowspan="1">Total Count</th>      
+      <td><%= total %></td>         
+    </tr>    
+  </table>   
+</div> 

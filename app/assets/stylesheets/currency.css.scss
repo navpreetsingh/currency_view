@@ -1,3 +1,46 @@
 // Place all the styles related to the currency controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* universal */
+
+#step_data_info {
+	width: 11.65%;
+	text-align: -webkit-right;
+	background-color: #1170DB;
+	color: aqua;
+	position: fixed;
+	overflow-y: auto;
+	.btn-info {
+		background-color: #16883A;
+	}
+	.btn-primary {
+		background-color: #0D1494;
+	}	
+}
+
+#profit_booking_info {
+	width: 62%;
+	text-align: -webkit-center;
+	background-color: #BA7B09;
+	color: rgb(229, 255, 0);
+	margin-left: 12%;
+	#detail_info {
+		background-color: #8C59C3;
+		color: white;
+	}
+}
+
+#common_info {
+	width: 25.65%;
+	text-align: -webkit-center;
+	margin-left: 75.5%;
+	background-color: #09BABA;
+	color: #1000FF;
+	position: fixed;
+	overflow-y: auto;
+	#currency_info {
+		background-color: #AB2210;
+		color: white;
+	}
+}
