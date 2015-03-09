@@ -16,4 +16,4 @@ end
 
 #RUN below command
 # rake fetch_data:all_currencies
-# rake "fetch_data:table_updation"
+# rake fetch_data:table_updation

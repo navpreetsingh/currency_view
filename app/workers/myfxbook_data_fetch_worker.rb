@@ -15,11 +15,11 @@ class MyfxbookDataFetchWorker
     	@site_p1 = "http://www.myfxbook.com/getHistoricalDataByDate.json?&start=1990-01-01%2000:00&end=#{end_date}%2000:00&symbol="    	
     	@site_p2 = "&timeScale="
     	@site_p3 = "&userTimeFormat=0&rand=0.35035624839875316"
-    	@currency = Constants["Currency"].values
+    	@currency = Constants["Currency"].values[-2..-1]
     	@time_scale = Constants["Time_Scale"]    	
 	end
 
-	def perform(interval=nil)
+	def perform(interval=nil)		
 		agent = MyfxbookDataFetchWorker.new				
 		case interval
 		when "Min_1"
@@ -79,15 +79,15 @@ class MyfxbookDataFetchWorker
 		fetch_data(time_scale, @time_scale[time_scale])
 	end
 
-	def Month_1
-		time_scale = "1Month"
+	def Month_1		
+		time_scale = "1Month"		
 		fetch_data(time_scale, @time_scale[time_scale])
 	end
 
 	
 	private	
 
-	def fetch_data(time_scale_key, time_scale_value)			
+	def fetch_data(time_scale_key, time_scale_value)						
 		@currency.each do |currency|
 			site = @site_p1 + currency.upcase + @site_p2 + time_scale_value.to_s + @site_p3
 			data = Nokogiri::HTML(JSON.parse(open(site).read)["content"]["historyData"]).text.gsub(" ","").split("\r\n")

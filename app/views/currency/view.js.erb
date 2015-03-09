@@ -1,3 +1,2 @@
-alert('great');
-$("#profit_booking_info").html("<%=j render :partial => 'profit_booking_info',
-	:locals => {select_data: #{@data[0..-2]}, default: #{@default}, data: #{@data[-1]} } %>");
+$("#profit_booking_info").html("<%=j render(:partial => 'profit_booking_info') %>");
+$("#basic_info").html("<%=j render(:partial => 'currency_info') %> ");

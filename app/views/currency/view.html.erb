@@ -1,15 +1,18 @@
-<% select_data = @data[0..-2] %>
-<% data = @data[-1] %>
-
 <div class = "row">
 
-  <%= render partial: "data_input", locals: {select_data: select_data} %> 
+	<div class = "col-xs-1" id = "step_data_info"> 
+  	<%= render partial: "data_input" %> 
+  </div>
 
-  <%= render partial: "profit_booking_info", locals: {select_data: select_data, default: @default, data: data} %>
+  <div class = "col-xs-7" id = "profit_booking_info"> 
+  	<%= render partial: "profit_booking_info" %>
+  </div>
  
 
   <div class="col-xs-4" id="common_info">
-    <%= render partial: "currency_info", locals: {data: data} %>
+  	<div id ="basic_info">
+    	<%= render partial: "currency_info" %>
+    </div>
   </div>
 
 </div>
