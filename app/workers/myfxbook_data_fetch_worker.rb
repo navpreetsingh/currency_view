@@ -94,8 +94,7 @@ class MyfxbookDataFetchWorker
 			data.delete("")
 			data = data.in_groups_of(7) if data.count % 7 == 0
 			data.delete_at(0)			
-			model_name = (currency + time_scale_key).constantize
-			puts model_name
+			model_name = (currency + time_scale_key).constantize			
 			DataStoring.store_fetched_data(data, model_name)
 		end
 	end	
