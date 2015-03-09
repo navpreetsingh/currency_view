@@ -26,8 +26,8 @@ class CurrencyController < ApplicationController
       sql1 += ", sum(if(min >= #{d.round(1)},1,0)) as min_#{d.round(1).to_s.gsub(".", "")}"
     end      
     sql = sql1 + " FROM " + table_name
-    @data = [initial_value, last_value, step_value, profit_booked, time_frame, currency]
-    @data << model_name.connection.execute(sql).first   
+    @data = [initial_value, last_value, step_value, profit_booked, time_frame, currency]    
+    @data << model_name.connection.execute(sql).first      
 
     respond_to do |format|
         format.js

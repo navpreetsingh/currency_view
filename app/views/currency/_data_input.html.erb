@@ -1,10 +1,11 @@
+<% select_data = @data[0..-2] %>
 <% initial_value, last_value = (0.5..5).step(0.5).to_a, (10..300).step(5).to_a  %>
 <% step_value = (0.1..0.9).step(0.1).to_a.map{|i| i.round(1)} + (1..5).step(0.5).to_a + (6..10).to_a.map{|i| i.round(1)} %>
 <% profit_set = (0.1..30).step(0.1).to_a.map {|i| i.round(1)} %>
 <% time_frame = @time_frame.values %>
 <% currency_list = @currency.keys.map{|i| i.upcase} %>
 
-<div class = "col-xs-1" id = "step_data_info">    
+   
     
     <%= form_tag("/currency/view", remote: true) do  -%>
       <label> Initial Value: </label>
@@ -41,5 +42,3 @@
       <br />
       <br />
     <% end %>   
-
-</div>
