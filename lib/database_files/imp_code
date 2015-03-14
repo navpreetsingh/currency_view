@@ -1,0 +1,15 @@
+currency.js.coffee
+
+jQuery ->
+	$("#step_data_info").hover( 		
+		-> $(this).css("overflow-y", "hidden")
+	)
+
+	$("#profit_booking_info table tbody").hover(
+		-> $(this).css("overflow-y", "scroll")
+		-> $(this).css("overflow-y", "hidden")
+	)
+
+$(document).ready ->
+	$("#step_data_info").css("overflow-y", "hidden")
+	$("#profit_booking_info table tbody").css("overflow-y", "hidden")

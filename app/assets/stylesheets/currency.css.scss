@@ -10,7 +10,7 @@
 	background-color: #1170DB;
 	color: aqua;
 	position: fixed;
-	overflow: hidden;
+	overflow-y: hidden;
 	
 	&:hover {
 		top: 20px;
@@ -34,35 +34,69 @@
 
 }
 
-#profit_booking_info {
+#center_data {
 	width: 62%;
-	height: 500px;
-	overflow: hidden;
-	
-	&:hover {
-		overflow-y: scroll;
-	}
-
-	text-align: -webkit-center;
+	height: 500px;	
 	background-color: #BA7B09;
 	color: rgb(229, 255, 0);
 	margin-left: 12%;
-	#detail_info {
-		background-color: #8C59C3;
-		color: white;
+	
+	.profit_booking_info {
+		padding: 10px 0 10px 0;		
+		height: 250px;		
+		color: #00ff00;
+
+		.table{
+			thead {
+				display: block;	
+
+				tr{
+					background-color: #BD2418;				
+					text-align: -webkit-center;			
+					color: white;								
+				}
+			}
+
+			tbody{
+				display: block;
+				overflow-y: hidden;
+				height: 200px;
+				width: 102%;
+
+				&:hover{
+					overflow-y:auto;
+				}				
+
+				tr {
+					background-color: #BD2418;					
+					text-align: -webkit-center;			
+					color: black;				
+				}
+					
+				tr:nth-child(odd) {
+					background-color: #E2B970;
+				} 
+
+				tr:nth-child(even) {
+					background-color: #C75D95;
+				}				
+			}				
+		}
+
 	}
 }
 
-#common_info {
-	width: 25.65%;
-	text-align: -webkit-center;
-	margin-left: 75.5%;
+#common_info {   
+	width: 25.65%;   
+	text-align: -webkit-center;   
+	margin-left: 75.5%;   
 	background-color: #09BABA;
-	color: #1000FF;
-	position: fixed;
-	overflow-y: auto;
-	#currency_info {
-		background-color: #AB2210;
-		color: white;
-	}
+	color: #1000FF;   
+	position: fixed;   
+	overflow-y: auto;   
+	#currency_info {     
+		background-color: #AB2210;     
+		color:white;   
+	} 
 }
+
