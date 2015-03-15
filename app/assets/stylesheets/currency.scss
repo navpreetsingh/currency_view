@@ -10,13 +10,7 @@
 	background-color: #1170DB;
 	color: aqua;
 	position: fixed;
-	overflow-y: hidden;
-	
-	&:hover {
-		top: 20px;
-		bottom: 0;
-		overflow-y: auto;		
-	}	
+	overflow-y: hidden;		
 
 	.btn-info {
 		background-color: #16883A;
