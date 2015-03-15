@@ -47,6 +47,7 @@
 		color: #00ff00;
 
 		.table{
+			overflow-x: auto;
 			thead {
 				display: block;	
 
@@ -92,11 +93,72 @@
 	margin-left: 75.5%;   
 	background-color: #09BABA;
 	color: #1000FF;   
-	position: fixed;   
-	overflow-y: auto;   
+	position: fixed;
+	overflow-y: hidden;
+	
+	&:hover {
+		top: 20px;
+		bottom: 0;
+		overflow-y: auto;		
+	}	
+
 	#currency_info {     
 		background-color: #AB2210;     
 		color:white;   
 	} 
+
+	#ranking_info {
+
+		label {			
+			color: white;
+		}
+
+		tr {
+			text-align: -webkit-center;
+		}
+
+		tr:nth-child(odd) {
+			background-color: #339313;						
+			.table {
+				color: #318E4B;
+
+				thead tr{
+					background-color: #2063A6;
+					color: #D7D419;
+				}
+
+				tbody tr:nth-child(odd) {
+					background-color: #70E27E;
+					
+				} 
+
+				tbody tr:nth-child(even) {
+					background-color: #065A0E;				
+				}
+			}
+		}
+
+		tr:nth-child(even) {
+			background-color: #BE493A;			
+			.table {
+				color: #B56E65;
+
+				thead tr{
+					background-color: #2063A6;
+					color: #D7D419;
+				}
+				
+				tbody tr:nth-child(odd) {
+					background-color: #894644;
+					
+				} 
+
+				tbody tr:nth-child(even) {
+					background-color: #84130E;				
+				}
+			}			
+		}
+		
+	}
 }
 

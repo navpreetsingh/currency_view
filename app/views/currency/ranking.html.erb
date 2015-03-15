@@ -1,0 +1,111 @@
+<% day_losers, day_winners = @hash[:Day].keys.sort.partition.each {|k| k < 0 } %>
+<% week_losers, week_winners = @hash[:Week].keys.sort.partition.each {|k| k < 0 } %>
+<% month_losers, month_winners = @hash[:Month].keys.sort.partition.each {|k| k < 0 } %>
+
+    <tr>
+      <td>
+        <label> Monthly Winners </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: month_winners.reverse, period: :Month} %>
+          </tbody>
+      </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <label> Monthly Losers </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: month_losers, period: :Month}  %>
+          </tbody>
+        </table>  
+      </td> 
+    </tr>  
+      
+    <tr>
+      <td>
+        <label> Weekly Winners </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: week_winners.reverse, period: :Week}  %>
+          </tbody>
+        </table>
+      </td> 
+    </tr>
+
+    <tr>
+      <td>
+        <label> Weekly Losers </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: week_losers, period: :Week} %>
+          </tbody>
+        </table>
+      </td> 
+    </tr>
+
+    <tr>
+      <td>
+        <label> Daily Winners </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: day_winners.reverse, period: :Day} %>
+          </tbody>
+        </table>
+      </td> 
+    </tr>
+
+    <tr>
+      <td>
+        <label> Daily Losers </label>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Currency </th>
+              <th> Change Pips </th>
+              <th> Change % </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "rank_table", locals: {keys: day_losers, period: :Day} %>
+          </tbody>
+        </table>
+      </td> 
+    </tr>

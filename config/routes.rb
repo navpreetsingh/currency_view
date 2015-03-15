@@ -1,6 +1,5 @@
 require 'sidekiq/web'
-Rails.application.routes.draw do
-  match 'currency/view', via:[:get, :post]
+Rails.application.routes.draw do  
   mount Sidekiq::Web, at: "/sidekiq"
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -18,6 +17,9 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  match "currency/view", via:[:get, :post]
+  get "currency/ranking"
+  
   # Example resource route with options:
   #   resources :products do
   #     member do

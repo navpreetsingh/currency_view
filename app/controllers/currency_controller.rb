@@ -1,5 +1,5 @@
 class CurrencyController < ApplicationController
-  def view
+  def view    
     #COLLECTING PARAMS
     #variable to have data of particular price range
     initial_value = params["initial_value"].nil? ? 0.1 : params["initial_value"].to_f
@@ -34,5 +34,22 @@ class CurrencyController < ApplicationController
         format.html
     end
 
+  end
+
+  def ranking
+    #const for time_frame & Currency
+    time_frame = Constants["Time_Frame"].keys[-3..-1].map{|e| e.gsub("_", "")}
+    currency = Constants["Currency"].values
+    @hash = {}
+    time_frame.each do |t|
+      key = t.gsub("1","").to_sym
+      @hash[key] = {}
+      currency.each do |c|        
+        model_name = (c + t).constantize
+        data = model_name.select("change_pips", "change_percentage").order("date desc").first
+        @hash[key][data.change_percentage] = [c, data.change_pips] 
+      end 
+    end
+    render layout: false
   end
 end

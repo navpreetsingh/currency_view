@@ -1,0 +1,7 @@
+<% keys.each do |key| -%>
+	<tr>
+  	<th rowspan="1"> <%= @hash[period][key].first %> </th>
+  	<td> <%= @hash[period][key].last %> </td>
+  	<td> <%= key %></td>
+	</tr>
+<% end %>

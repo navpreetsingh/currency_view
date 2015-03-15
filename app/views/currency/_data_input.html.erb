@@ -7,7 +7,7 @@
 
    
     
-    <%= form_tag("/currency/view", remote: true) do  -%>
+    <%= form_tag("/currency/view", id: "currency_form") do  -%>
       <label> Initial Value: </label>
       <br />
       <%= select_tag :initial_value, options_for_select([0.1] + initial_value, select_data[0]), class: "btn btn-info dropdown-toggle" %>        
@@ -38,7 +38,7 @@
       <%= select_tag :currency, options_for_select(currency_list, select_data[5]), class: "btn btn-info dropdown-toggle" %>        
       <br />
       <br />
-      <%= submit_tag "Save", class: "btn btn-primary" %>
+      <%= submit_tag "Save", class: "btn btn-primary", id: "submit_button" %>
       <br />
       <br />
     <% end %>   

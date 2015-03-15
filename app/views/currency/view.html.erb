@@ -8,7 +8,23 @@
     <table style = "width: 100%">
     <tr>
       <td class = "profit_booking_info">
-        <%= render partial: "profit_booking_info" %>
+        <label > 1 Minute Info: </label>  
+        <table class="table table-bordered" style = "width: 150%">
+          <thead>
+            <tr>
+              <th style = "width: 7.2%">Price</th>
+              <th>Max_count</th>
+              <th style = "width: 11.7%">Min_Count</th>
+              <th style = "width: 15.8%">Max_count_%</th>
+              <th style = "width: 15.7%">Min_Count_%</th> 
+              <th style = "width: 24.7%">Profit_max_%</th>
+              <th style = "width: 25%">Profit_min_%</th>                                             
+            </tr>
+          </thead>
+          <tbody id = "currency_detail_info">     
+            <%= render partial: "profit_booking_info" %>
+           </tbody>
+        </table>      
       </td>
     </tr>            
     </table> 
@@ -17,9 +33,19 @@
  
 
   <div class="col-xs-4" id="common_info">
-  	<div id ="basic_info">
-    	<%= render partial: "currency_info" %>
-    </div>
+  	<label> XAUUSD Information: </label>
+    <table class="table table-bordered">
+      <tbody id = "currency_info">
+        <%= render partial: "currency_info" %>
+      </tbody>
+    </table>
+
+    <label> Ranking Details </label> 
+      <table class="table table-bordered">
+        <tbody id = "ranking_info">
+        </tbody>
+      </table>
+
   </div>
 
 </div>
