@@ -1,6 +1,7 @@
 class CurrencyController < ApplicationController
   def view    
     #COLLECTING PARAMS
+    @profit_setted = params["profit_set"]
     
     #variable to store time_frame & currency
     time_frame = params["time_frame"].nil? ? "1 Minute" : params["time_frame"]
@@ -19,7 +20,7 @@ class CurrencyController < ApplicationController
       sql1 += ", sum(if(min >= #{d.round(1)},1,0)) as min_#{d.round(1).to_s.gsub(".", "")}"
     end      
     sql = sql1 + " FROM " + table_name
-    @data = model_name.connection.execute(sql).first      
+    @data = model_name.connection.execute(sql).first         
 
     respond_to do |format|
         format.js

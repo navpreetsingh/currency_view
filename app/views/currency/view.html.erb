@@ -5,33 +5,33 @@
   </div>
 
   <div class = "col-xs-7" id = "center_data">
-    <table style = "width: 100%">
-    <tr>
-      <td class = "profit_booking_info">
-        <label > 1 Minute Info: </label>  
+    <div style = "width: 785px;">    
+      <div class = "profit_booking_info">
+        <label > 1 Minute Info: </label>           
+        
         <table class="table table-bordered" style = "width: 150%">
           <thead>
             <tr>
-              <th style = "width: 7.2%">Price</th>
-              <th>Max_count</th>
-              <th style = "width: 11.7%">Min_Count</th>              
-              <th style = "width: 24.7%">Profit_max_%</th>
-              <th style = "width: 25%">Profit_min_%</th>                                             
+              <th style = "width: 55px;">Price</th>
+              <th style = "width: 91px;">Max_count</th>
+              <th style = "width: 91px;">Min_Count</th>              
+              <th style = "width: 181px;">Profit_max_%</th>
+              <th style = "width: 182px;">Profit_min_%</th>
+              <th style = "width: 182px;">Profit_avg_%</th>                                         
             </tr>
           </thead>
           <tbody id = "currency_detail_info">     
             <%= render partial: "profit_booking_info" %>
            </tbody>
         </table>      
-      </td>
-    </tr>            
-    </table> 
+      </div>                
+    </div> 
   	
   </div>
  
 
   <div class="col-xs-4" id="common_info">
-  	<label> XAUUSD Information: </label>
+  	<label id="cur_info"> XAUUSD Information: </label>
     <table class="table table-bordered">
       <tbody id = "currency_info">
         <%= render partial: "currency_info" %>

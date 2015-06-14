@@ -17,10 +17,9 @@ jQuery ->
 		data = $(this)
 		timeframe = $("#time_frame").val()
 		currency = $("#currency").val()		
-		$.ajax(type:"POST", url: data.attr("action"),	data: data.serialize()).done ->
-			debugger
+		$.ajax(type:"POST", url: data.attr("action"),	data: data.serialize()).done ->			
 			$(".profit_booking_info label").text(timeframe + " Info:")
-			$("#common_info label").text(currency + " Information:")		
+			$("#cor_info").text(currency + " Information:")		
 		e.preventDefault()
 		false
 	

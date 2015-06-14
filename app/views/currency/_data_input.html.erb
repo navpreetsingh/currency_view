@@ -1,5 +1,7 @@
 <% time_frame = @time_frame.values %>
 <% currency_list = @currency.keys.map{|i| i.upcase} %>
+<% profit_set = (0.1..100).step(0.1).to_a.map {|i| i.round(1)} %>
+<% profit_setted = @profit_setted.nil? ? 1 : @profit_setted %> 
 
    
     
@@ -7,6 +9,11 @@
       <label> Time Frame: </label>
       <br />
       <%= select_tag :time_frame, options_for_select(time_frame), class: "btn btn-info dropdown-toggle" %>    
+      <br />
+      <br />
+      <label> Set Profit: </label>
+      <br />
+        <%= select_tag :profit_set, options_for_select(profit_set, @profit_setted), class: "btn btn-info dropdown-toggle profit_set" %>
       <br />
       <br />
       <label> Currencies: </label>
