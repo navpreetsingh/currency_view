@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214070153) do
+ActiveRecord::Schema.define(version: 20150823163918) do
 
   create_table "aud_cad15_mins", force: true do |t|
     t.datetime "date"
@@ -774,6 +774,13 @@ ActiveRecord::Schema.define(version: 20150214070153) do
     t.float    "oc_diff",           limit: 24
     t.float    "max",               limit: 24
     t.float    "min",               limit: 24
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "currencies", force: true do |t|
+    t.string   "name"
+    t.string   "table_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -2155,6 +2162,19 @@ ActiveRecord::Schema.define(version: 20150214070153) do
     t.datetime "updated_at"
   end
 
+  create_table "pressure_infos", force: true do |t|
+    t.integer  "currency_id"
+    t.string   "price_diff",                                                 null: false
+    t.decimal  "max_count",            precision: 8, scale: 4, default: 0.0, null: false
+    t.decimal  "max_count_percentage", precision: 5, scale: 2, default: 0.0, null: false
+    t.decimal  "min_count",            precision: 8, scale: 4, default: 0.0, null: false
+    t.decimal  "min_count_percentage", precision: 5, scale: 2, default: 0.0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pressure_infos", ["currency_id"], name: "index_pressure_infos_on_currency_id", using: :btree
+
   create_table "usd_cad15_mins", force: true do |t|
     t.datetime "date"
     t.float    "open",              limit: 24
@@ -2837,19 +2857,23 @@ ActiveRecord::Schema.define(version: 20150214070153) do
 
   create_table "xau_usd1_months", force: true do |t|
     t.datetime "date"
-    t.float    "open",              limit: 24
-    t.float    "high",              limit: 24
-    t.float    "low",               limit: 24
-    t.float    "close",             limit: 24
-    t.float    "change_pips",       limit: 24
-    t.float    "change_percentage", limit: 24
-    t.float    "oh_diff",           limit: 24
-    t.float    "ol_diff",           limit: 24
-    t.float    "oc_diff",           limit: 24
-    t.float    "max",               limit: 24
-    t.float    "min",               limit: 24
+    t.float    "open",                  limit: 24
+    t.float    "high",                  limit: 24
+    t.float    "low",                   limit: 24
+    t.float    "close",                 limit: 24
+    t.float    "change_pips",           limit: 24
+    t.float    "change_percentage",     limit: 24
+    t.float    "oh_diff",               limit: 24
+    t.float    "ol_diff",               limit: 24
+    t.float    "oc_diff",               limit: 24
+    t.float    "max",                   limit: 24
+    t.float    "min",                   limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "max_buyer_pressure",               precision: 5, scale: 2
+    t.decimal  "max_seller_pressure",              precision: 5, scale: 2
+    t.decimal  "close_buyer_pressure",             precision: 5, scale: 2
+    t.decimal  "close_seller_pressure",            precision: 5, scale: 2
   end
 
   create_table "xau_usd1_weeks", force: true do |t|

@@ -45,4 +45,14 @@ class CurrencyController < ApplicationController
     end
     render layout: false
   end
+
+  def data
+    sql1 = "SELECT (UNIX_TIMESTAMP(date) * 1000) + 85000, open, high, low, close FROM "
+    sql = sql1 + " xau_usd1_days" + " ORDER BY date ASC"
+    @data = XauUsd1Day.connection.execute(sql)
+    respond_to do |format|
+      format.json { render :json => @data }
+    end        
+  end
+
 end

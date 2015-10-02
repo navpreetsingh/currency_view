@@ -39,6 +39,68 @@ class DataStoring
       end
     end
 
+    def store_pressure_info(currency) 
+      model_name = currency.constantize 
+      model_name.connection  
+      max_value = model_name.select("MAX(max) as 'maximum'").first.maximum.round(1)
+      currency = Currency.where(name: currency).first      
+      price_diff = (0.1..max_value).step(0.1).to_a.map { |i| i.round(1)}          
+      data = get_data(price_diff, model_name, currency.table_name)
+      even, odd = data[3..-1].partition.each_with_index{ |el, i| i.even? }
+      total = data[2]      
+      (0..price_diff.count-1).each do |index|              
+        pressure_info = currency.pressure_infos.where(price_diff: price_diff[index].to_s).first_or_initialize        
+        pressure_info.update(max_count: even[index], max_count_percentage: even[index] / total.to_f * 100, min_count: odd[index], min_count_percentage: odd[index].nil? ? 0 : odd[index] / total.to_f * 100)
+      end
+    end
+
+    def get_data(price_diff, model_name, table_name)
+      sql1 = "SELECT avg(max) as max_avg, avg(min) as min_avg, count(*) as total"
+      price_diff.each do |d|
+        sql1 += ", sum(if(max >= #{d.round(1)},1,0)) as max_#{d.round(1).to_s.gsub(".", "")}"
+        sql1 += ", sum(if(min >= #{d.round(1)},1,0)) as min_#{d.round(1).to_s.gsub(".", "")}"
+      end      
+      sql = sql1 + " FROM " + table_name      
+      model_name.connection.execute(sql).first      
+    end
+
+    def set_pressure(currency)
+      currency.constantize.connection      
+      pressure_info = Currency.where(name: currency).first.pressure_infos      
+      currency_data = currency.constantize.all            
+      currency_data.each do |data|
+        begin
+          if data.max == data.oh_diff          
+            max_buyer_pressure = 100 - pressure_info.where("price_diff >= ?", data.oh_diff).first.max_count_percentage
+            max_seller_pressure = 100 - pressure_info.where("price_diff >= ?", data.ol_diff).first.max_count_percentage
+            if data.oc_diff > 0
+              close_buyer_pressure = 100 - pressure_info.where("price_diff >= ?", data.oc_diff).first.max_count_percentage
+              close_seller_pressure = 100 - pressure_info.where("price_diff >= ?", data.oh_diff - data.oc_diff).first.max_count_percentage
+            else
+              close_buyer_pressure = -100 - pressure_info.where("price_diff >= ?", -1 * data.oc_diff).first.max_count_percentage
+              close_seller_pressure = 100 - pressure_info.where("price_diff >= ?", (data.oh_diff - data.oc_diff)).first.max_count_percentage
+            end
+          else
+            max_buyer_pressure = 100 - pressure_info.where("price_diff >= ?", data.oh_diff).first.max_count_percentage
+            max_seller_pressure = 100 - pressure_info.where("price_diff >= ?", data.ol_diff).first.max_count_percentage
+            if data.oc_diff < 0
+              close_buyer_pressure = 100 - pressure_info.where("price_diff >= ?", data.ol_diff + data.oc_diff).first.max_count_percentage
+              close_seller_pressure = 100 - pressure_info.where("price_diff >= ?", -1 * data.oc_diff).first.max_count_percentage
+            else
+              close_buyer_pressure = 100 - pressure_info.where("price_diff >= ?", data.ol_diff + data.oc_diff).first.max_count_percentage
+              close_seller_pressure = -100 - pressure_info.where("price_diff >= ?", -1 * (data.oc_diff)).first.max_count_percentage
+            end          
+          end
+          data.update(max_buyer_pressure: max_buyer_pressure, max_seller_pressure: max_seller_pressure, close_buyer_pressure: close_buyer_pressure, close_seller_pressure: close_seller_pressure)      
+        rescue Exception => e
+          debugger
+          puts data.id
+          puts e.message
+          puts e.backtrace 
+        end       
+      end
+    end
+
     def make_all_models
       currency = Constants["Currency"].keys
       time_frame = Constants["Time_Frame"].keys.map{|i| i.downcase}
