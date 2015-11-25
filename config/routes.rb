@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   match "currency/view", via:[:get, :post]
   get "currency/ranking"
+  get "currency/data"
   
   # Example resource route with options:
   #   resources :products do

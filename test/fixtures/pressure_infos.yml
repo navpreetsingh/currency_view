@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  currency_id: 
+  time_frame_id: 
+  price_diff: 
+  max_count: 
+  max_count_percentage: 
+  min_count: 
+  min_count_percentage: 
+
+two:
+  currency_id: 
+  time_frame_id: 
+  price_diff: 
+  max_count: 
+  max_count_percentage: 
+  min_count: 
+  min_count_percentage: 

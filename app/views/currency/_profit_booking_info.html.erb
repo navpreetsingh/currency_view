@@ -1,32 +1,72 @@
-<% select_data = @data[0..-2] %>
-<% data = @data[-1] %>
+<% data = @data %>
 <% even, odd = data[3..-1].partition.each_with_index{ |el, i| i.even? } %>
 <% total = data[2] %>
-<% profit = (select_data[2..3].sum + 0.6).round(1)  %>
+<% profit_setted = @profit_setted.nil? ? 1 : @profit_setted %> 
+<% profit = (profit_setted.to_f + 0.6).round(1)  %>
 <% profit_index = @default.find_index(profit) %>
-<% profit_max, profit_min = [(even[profit_index] / total.to_f * 100).round(2)], [(odd[profit_index] / total.to_f * 100).round(2)] %>
+
+<% profit_max, profit_min, profit_avg = [(even[profit_index] / total.to_f * 100).round(2)], [(odd[profit_index] / total.to_f * 100).round(2)], [((even[profit_index] + odd[profit_index]) / (total.to_f * 2) * 100).round(2)] %>
 <% (profit_index+1..even.count - 1).to_a.each do |index| %>
   <%  profit_max << (even[index] / even[index - profit_index].to_f * 100).round(2) if even[index - 1] != 0 %>
   <%  profit_min << (odd[index] / odd[index - profit_index].to_f * 100).round(2) if odd[index - 1] != 0 %>
+  <% profit_avg << ((even[index] + odd[index]) / (even[index - profit_index] + odd[index - profit_index]).to_f * 100).round(2) %>
 <% end %>
 
 <% @default.each_index do |index|%>
   <tr>
-    <td style = "width: 6.7%"><%= @default[index].round(1) %></td>
+    <td style = "width:55px;"><%= @default[index].round(1) %></td>
     <% if index > 0 %>          
-      <td style = "width: 11.7%"><%= even[index - 1] != 0 ? even[index] : nil %></td>
-      <td style = "width: 11.7%"><%= odd[index - 1] != 0 ? odd[index] : nil %></td>
-      <td style = "width: 15%"><%= even[index - 1] != 0 ? ((even[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>
-      <td style = "width: 15%"><%= odd[index - 1] != 0 ? ((odd[index] / total.to_f) * 100).round(2).to_s + "%" : nil %></td>  
-      <td style = "width: 20%"><%= (index < profit_index or profit_max[index - profit_index].nil?) ? nil : profit_max[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>
-      <td style = "width: 20%"><%= (index < profit_index or profit_min[index - profit_index].nil?) ? nil : profit_min[index - profit_index].to_s + "% .......(Buy/Sell @ #{(@default[index - profit_index]).round(1)})" %> </td>       
+      <td style = "width: 91px;">
+        <%= even[index - 1] != 0 ? even[index] : nil %>
+        <br>
+        (<%= even[index - 1] != 0 ? ((even[index] / total.to_f) * 100).round(2).to_s  : nil %> %)
+      </td>
+      <td style = "width: 91px;"><%= odd[index - 1] != 0 ? odd[index] : nil %>
+        <br>
+        <%= odd[index - 1] != 0 ? "(" + ((odd[index] / total.to_f) * 100).round(2).to_s + "%)" : nil %> 
+      </td>      
+      <td style = "width: 181px;">
+        <% if (index < profit_index or profit_max[index - profit_index].nil?) %>
+          <%= nil %>
+        <% else %>
+          <%= " #{even[index]} / #{index - profit_index == 0 ? total : even[index - profit_index - 0.1]}: " %>
+          <span style = "color: blue;"> <%= profit_max[index - profit_index].to_s + "%" %> </span>
+          <br>
+          <%= "(Buy/Sell @ #{(@default[index - profit_index]-0.1).round(1)} )" %>
+        <% end %>        
+      </td>
+      <td style = "width: 182px;">
+        <% if (index < profit_index or profit_min[index - profit_index].nil?) %>
+          <%= nil %>
+        <% else %>
+          <%= " #{odd[index]} / #{index - profit_index == 0 ? total : odd[index - profit_index - 0.1]}: " %>
+          <span style = "color: blue;"> <%= profit_min[index - profit_index].to_s + "%"%> </span>   <br>
+          <%= "(Buy/Sell @ #{(@default[index - profit_index]- 0.1).round(1)})" %>
+        <% end %> 
+      </td>
+      <td style = "width: 182px;">
+        <% if (index < profit_index or profit_max[index - profit_index].nil?) %>
+          <%= nil %>
+        <% else %>          
+          <%= " #{even[index] + odd[index]} / #{index - profit_index == 0 ? (total * 2) : (even[index - profit_index - 0.1] + odd[index - profit_index - 0.1])}: " %>
+          <span style = "color: blue;"> <%= profit_avg[index - profit_index].to_s + "%"%> </span>   <br>
+          <%= "(Buy/Sell @ #{(@default[index - profit_index]- 0.1).round(1)})" %>          
+        <% end %>
+      </td>       
      <% else %>
-        <td style = "width: 11.7%"><%= even[index] %></td>
-        <td style = "width: 11.7%"><%= odd[index] %></td>
-        <td style = "width: 15%"><%= ((even[index] / total.to_f) * 100).round(2) %>%</td>
-        <td style = "width: 15%"><%= ((odd[index] / total.to_f) * 100).round(2) %>%</td>  
-        <td style = "width: 20%">  </td>
-        <td style = "width: 20%">  </td>        
+        <td style = "width: 91px;">
+          <%= even[index] %>
+          <br>
+          (<%= ((even[index] / total.to_f) * 100).round(2) %> %)
+        </td>
+        <td style = "width: 91px;">
+          <%= odd[index] %>
+          <br>
+          (<%= ((odd[index] / total.to_f) * 100).round(2) %> %)
+        </td>        
+        <td style = "width: 180px;">  </td>
+        <td style = "width: 180px;">  </td> 
+        <td style = "width: 182px;">  </td>        
       <% end %>
   </tr>
 <% end %>                    

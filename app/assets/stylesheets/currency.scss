@@ -10,13 +10,7 @@
 	background-color: #1170DB;
 	color: aqua;
 	position: fixed;
-	overflow-y: hidden;
-	
-	&:hover {
-		top: 20px;
-		bottom: 0;
-		overflow-y: auto;		
-	}	
+	overflow-y: hidden;		
 
 	.btn-info {
 		background-color: #16883A;
@@ -36,14 +30,14 @@
 
 #center_data {
 	width: 62%;
-	height: 500px;	
+	height: 800px;	
 	background-color: #BA7B09;
 	color: rgb(229, 255, 0);
 	margin-left: 12%;
 	
 	.profit_booking_info {
 		padding: 10px 0 10px 0;		
-		height: 250px;		
+		height: 320px;		
 		color: #00ff00;
 
 		.table{
@@ -95,6 +89,7 @@
 	color: #1000FF;   
 	position: fixed;
 	overflow-y: hidden;
+	height: 600px;
 	
 	&:hover {
 		top: 20px;
